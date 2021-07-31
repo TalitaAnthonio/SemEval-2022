@@ -8,6 +8,7 @@ html:
     terms: terms_and_conditions.html
     data: data.html
     organizers: organizers.html
+    timetable: timetable.html
 
 # Phase 1: development phase and Phase 2: Submission Phase? 
 phases:
