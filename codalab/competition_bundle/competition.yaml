@@ -8,14 +8,17 @@ html:
     terms: terms_and_conditions.html
     data: data.html
     organizers: organizers.html
+
+# Phase 1: development phase and Phase 2: Submission Phase? 
 phases:
     1:
         phasenumber: 1
-        label: "First phase"
-        start_date: 2013-06-30
-        max_submissions: 100
+        label: "Trial Phase"
+        start_date: 2021-08-01
+        max_submissions: 7000
         scoring_program: scoring_program.zip
         reference_data: reference_data.zip
+        public_data: input_data.zip 
 leaderboard:
     leaderboards:
         RESULTS: &RESULTS
