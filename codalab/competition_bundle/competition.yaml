@@ -1,6 +1,6 @@
-title: Identifying Plausible Clarifications of Implicit and Underspecified Phrases in Instructional Texts
-description: Shared task on identifying plausible clarifications in Instructional Texts. 
-image: logo.jpg
+title: SemEval-2022 7: Identifying Plausible Clarifications of Implicit and Underspecified Phrases in Instructional Texts
+description: Shared task on identifying plausible clarifications in WikiHow instructions. 
+image: clarification_task_logo.png
 has_registration: True
 html:
     overview: overview.html
@@ -12,16 +12,48 @@ html:
 
 # Phase 1: development phase and Phase 2: Submission Phase? 
 phases:
-    1:
-        color: orange 
-        description: "Release of the trial data."
-        phasenumber: 1
+    0:
+        color: yellow
+        description: "Development phase"
+        phasenumber: 0
         label: "Trial Phase"
-        start_date: 2021-08-01
-        max_submissions: 7000
+        start_date: 2021-09-03
+        max_submissions: 10 
+        max_submissions_per_day: 10 
         scoring_program: scoring_program.zip
         reference_data: reference_data.zip
         public_data: input_data.zip 
+
+
+    1: 
+        color: orange
+        description: Evaluation phase
+        label: Evaluation 
+        max_submissions_per_day: 10 
+        max_submissions: 10 
+        phasenumber: 1
+        reference_data: eval_data.zip 
+        scoring_program: scoring_eval.zip 
+        start_date: 2021-12-03
+
+
+    2: 
+        color: blue 
+        description: Submission phase
+        label: Submission 
+        max_submissions_per_day: 10 
+        max_submissions: 10 
+        phasenumber: 1
+        reference_data: eval_data.zip 
+        scoring_program: scoring_eval.zip 
+        start_date: 2022-01-10
+
+
+
+        
+
+
+
 leaderboard:
     leaderboards:
         RESULTS: &RESULTS
