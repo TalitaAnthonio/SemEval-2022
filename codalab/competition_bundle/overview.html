@@ -19,67 +19,77 @@
 </div>
 
 <h4>Data</h4>
-<p>
+<div>
+    <p>
     The basis of our task is wikiHowToImprove (Anthonio et al., 2020), a collection of revisions of instructional texts from the how-to website <a href="http://www.wikihow.com">wikiHow</a>.
     This website consists of collaboratively edited how-to guides for everyday scenarios.
     Each article has a revision history that records the changes applied by different collaborators.
-</p>
-<p>
-    For this task, we extract revisions that we believe are likely to represent specific instances of clarifications for various semantic and pragmatic phenomena:
-    <ul>
-        <li>
-            insertion of implicit references:
-            <ul>
-                <li>In the original version of a sentence, there was an implicit reference to a previously mentioned entity. The revision makes this reference explicit.</li>
-                <li>Example: "Visit the salon's website. Call and ask questions." -> "Call the <b>salon</b> and ask questions."</li>
-            </ul>
-        </li>
-        <li>
-            resolution of fused head noun phrases:
-            <ul>
-                <li>In the original version, there is a noun phrase where the head noun is missing. The revision adds that noun.</li>
-                <li>Example: "The container must be exactly the same as the container you used to collect the water." -> "The container must be exactly the same <b>diameter</b> as the container you used to collect the water."</li>
-            </ul>
-        </li>
-        <li>
-            completion of noun compounds:
-            <ul>
-                <li>The revision adds a compound modifier to a noun to make its meaning more specific.</li>
-                <li>Example: "Send a card." -> "Send a <b>reminder</b> card."</li>
-            </ul>
-        </li>
-        <li>
-            resolution of metonymic relations:
-            <ul>
-                <li>In the original version, a noun is used in a metonymy. The revision makes the particular component or aspect of a noun explicit that is meant.</li>
-                <li>Example: "Screw each stringer to the deck frame with a drill." -> "Screw each stringer to <b>the top of</b> the deck frame with a drill."</li>
-            </ul>
-        </li>
-    </ul>
-</p>
-<p>
-    To assess the plausibility of different clarification options, we automatically generate alternatives to the insertion an wikiHow contributor made.
-    We treat each original sentence as a cloze test, inserting a blank at the position where the wikiHow contributor edited the text (e. g. "Send a _ card."). Then, we use a language model to fill this blank.
-    We ask annotators to rate for each clarification option whether it "makes sense in the given how-to guide" (on a scale from 1 to 5).
-    Afterwards, we average over the different ratings for one clarification to get the final gold score.
-</p>
+    </p>
+    <p>
+        For this task, we extract revisions that we believe are likely to represent specific instances of clarifications for various semantic and pragmatic phenomena:
+        <ul>
+            <li>
+                insertion of implicit references:
+                <ul>
+                    <li>In the original version of a sentence, there was an implicit reference to a previously mentioned entity. The revision makes this reference explicit.</li>
+                    <li>Example: "Visit the salon's website. Call and ask questions." -> "Call the <b>salon</b> and ask questions."</li>
+                </ul>
+            </li>
+            <li>
+                resolution of fused head noun phrases:
+                <ul>
+                    <li>In the original version, there is a noun phrase where the head noun is missing. The revision adds that noun.</li>
+                    <li>Example: "The container must be exactly the same as the container you used to collect the water." -> "The container must be exactly the same <b>diameter</b> as the container you used to collect the water."</li>
+                </ul>
+            </li>
+            <li>
+                completion of noun compounds:
+                <ul>
+                    <li>The revision adds a compound modifier to a noun to make its meaning more specific.</li>
+                    <li>Example: "Send a card." -> "Send a <b>reminder</b> card."</li>
+                </ul>
+            </li>
+            <li>
+                resolution of metonymic relations:
+                <ul>
+                    <li>In the original version, a noun is used in a metonymy. The revision makes the particular component or aspect of a noun explicit that is meant.</li>
+                    <li>Example: "Screw each stringer to the deck frame with a drill." -> "Screw each stringer to <b>the top of</b> the deck frame with a drill."</li>
+                </ul>
+            </li>
+        </ul>
+    </p>
+    <p>
+        To assess the plausibility of different clarification options, we automatically generate alternatives to the insertion an wikiHow contributor made.
+        We treat each original sentence as a cloze test, inserting a blank at the position where the wikiHow contributor edited the text (e. g. "Send a _ card."). Then, we use a language model to fill this blank.
+        We ask annotators to rate for each clarification option whether it "makes sense in the given how-to guide" (on a scale from 1 to 5).
+        Afterwards, we average over the different ratings for one clarification to get the final gold score.
+    </p>
+</div>
 
 <h4>Task Set-Up</h4>
-<p>Systems have to predict how well each filler fits in a given context.</p>
-<p>There are two subtasks: a classification task and a ranking task.</p>
+<div>
+    <p>Systems have to predict how well each filler fits in a given context.</p>
+    <p>There are two subtasks: a classification task and a ranking task.</p>
+</div>
 
 <h5>Subtask A: Multi-Class Classification</h5>
-<p>The goal is to predict a class label (implausible/not-sure/plausible) given the clarification and its context.</p>
-<p>Submitted systems will be evaluated using the accuracy score.</p>
+<div>
+    <p>The goal is to predict a class label (implausible/not-sure/plausible) given the clarification and its context.</p>
+    <p>Submitted systems will be evaluated using the accuracy score.</p>
+</div>
 
 <h5>Subtask B: Ranking</h5>
-<p>The goal is to predict the plausibility score on a scale from 1 to 5 given the clarification and its context.</p>
-<p>
-    All clarifications in the evaluation set are ordered by the predicted plausibility in order to create a ranking.
-    This ranking is then compared to the ranking that was established by the gold plausibility scores.
-    The evaluation metric for this comparison is Spearman's rank correlation coefficient.
-</p>
+<div>
+    <p>The goal is to predict the plausibility score on a scale from 1 to 5 given the clarification and its context.</p>
+    <p>
+        All clarifications in the evaluation set are ordered by the predicted plausibility in order to create a ranking.
+        This ranking is then compared to the ranking that was established by the gold plausibility scores.
+        The evaluation metric for this comparison is Spearman's rank correlation coefficient.
+    </p>
+</div>
 
 <h4>Want to Get in Touch? Need a Clarification?</h4>
-<p>There is no formal registration for the task yet. Anyone interested can join our Google group <a href="https://groups.google.com/g/semeval2022-task7/">here</a>.</p>
-<p>For further information and to access the trial and training data, visit <a href="https://clarificationtask.github.io">this website</a>.</p>
+<div>
+    <p>There is no formal registration for the task yet. Anyone interested can join our Google group <a href="https://groups.google.com/g/semeval2022-task7/">here</a>.</p>
+    <p>For further information and to access the trial and training data, visit <a href="https://clarificationtask.github.io">this website</a>.</p>
+</div>
