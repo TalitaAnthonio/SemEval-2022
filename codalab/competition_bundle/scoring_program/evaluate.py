@@ -62,31 +62,50 @@ def main():
         truth_file = os.path.join(truth_dir, "truth.tsv")
 
         # list the files in the directory 
-        files_in_submit_dir = [file for file in os.listdir(submit_dir)]
+        path_to_classification = os.path.join(submit_dir, "classification")
+        path_to_ranking = os.path.join(submit_dir, "ranking")
+        files_in_submit_dir_classification = [file for file in os.listdir(path_to_classification)]
+        files_in_submit_dir_ranking = [file for file in os.listdir(path_to_ranking)]
 
-        if 'classification_answer.tsv' in files_in_submit_dir: 
+        if 'classification_answers.tsv' in files_in_submit_dir_classification and "ranking_answers.tsv" in files_in_submit_dir_ranking:  
             # read the truth files. 
-            truth = pd.read_csv(truth_file, sep='\t')
-            del truth['Rating']
-
-            #TODO make sure that it reads the correct column 
-            truth_dict = {row["Id"]: row["Class"] for index,row in truth.iterrows()}
-
+      
+     
             # read the submitted file 
-            submission_answer_file = os.path.join(submit_dir, "classification_answers.tsv")
+            submission_answer_file = os.path.join(submit_dir, "classification", "classification_answers.tsv")
             submission_answer = pd.read_csv(submission_answer_file, sep='\t')
             submission_answer_dict = {row["Id"]: row["Class"] for index, row in submission_answer.iterrows()}
 
-            # compute the scores 
+            # compute the accuracy 
+            truth = pd.read_csv(truth_file, sep='\t')
+            del truth['Rating']
+            truth_dict = {row["Id"]: row["Class"] for index,row in truth.iterrows()}
+            accuracy_score = compute_accuracy(submission_answer_dict, truth_dict)
+            
+            # compute the ranking score 
+            submission_answer_file = os.path.join(submit_dir, "ranking", "ranking_answers.tsv")
+            ranking_score = score_ranking_task(submission_answer_file, truth_file)
+        
+        elif 'classification_answers.tsv' in files_in_submit_dir_classification: 
+            submission_answer_file = os.path.join(submit_dir, "classification", "classification_answers.tsv")
+            submission_answer = pd.read_csv(submission_answer_file, sep='\t')
+            submission_answer_dict = {row["Id"]: row["Class"] for index, row in submission_answer.iterrows()}
+
+            # compute the accuracy 
+            truth = pd.read_csv(truth_file, sep='\t')
+            del truth['Rating']
+            truth_dict = {row["Id"]: row["Class"] for index,row in truth.iterrows()}
             accuracy_score = compute_accuracy(submission_answer_dict, truth_dict)
             ranking_score = 0 
-        elif "ranking_answer.tsv" in files_in_submit_dir: 
-            submission_answer_file = os.path.join(submit_dir, "ranking_answers.tsv")
+        
+        elif "ranking_answers.tsv" in files_in_submit_dir_ranking: 
+            submission_answer_file = os.path.join(submit_dir, "ranking", "ranking_answers.tsv")
             ranking_score = score_ranking_task(submission_answer_file, truth_file)
             accuracy_score = 0 
-        else: 
-            raise ValueError("Submitted file should be classification.tsv or ranking.tsv")
 
+        else: 
+            raise ValueError("Submitted file should be classification/classification_answers.tsv or ranking/ranking_answers.tsv. Files in classification {0} and in ranking folder are {1}".format(files_in_submit_dir_classification, files_in_submit_dir_ranking)) 
+            
 
         output_file.write("ranking_score:{:.3f}\n".format(ranking_score))
         output_file.write("accuracy_score:{:.3f}\n".format(accuracy_score))
