@@ -36,9 +36,9 @@ phases:
         max_submissions_per_day: 10 
         max_submissions: 10 
         phasenumber: 1
-        reference_data: reference_data.zip 
-        scoring_program: scoring_program.zip 
-        start_date: 2021-12-03
+        reference_data: reference_data.zip
+        scoring_program: scoring_program.zip
+        start_date: 2021-01-01
         
 
 
@@ -48,7 +48,7 @@ phases:
         label: Submission 
         max_submissions_per_day: 10 
         max_submissions: 10 
-        phasenumber: 1
+        phasenumber: 2
         reference_data: reference_data.zip 
         scoring_program: scoring_program.zip 
         start_date: 2022-01-10
@@ -60,8 +60,13 @@ leaderboard:
             label: Results
             rank: 1
     columns:
-        correct:
+        ranking_score: 
             leaderboard: *RESULTS
-            label: correct
-            rank: 1
-            numeric_format: 1
+            label: Ranking Score 
+            rank: 3
+            numeric_format: 5
+        accuracy_score:
+            leaderboard: *RESULTS
+            label: Accuracy Score
+            rank: 2
+            numeric_format: 5
