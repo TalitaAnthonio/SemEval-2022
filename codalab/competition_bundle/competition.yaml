@@ -38,7 +38,7 @@ phases:
         phasenumber: 1
         reference_data: reference_data.zip
         scoring_program: scoring_program.zip
-        start_date: 2021-01-01
+        start_date: 2022-01-01
         
 
 
