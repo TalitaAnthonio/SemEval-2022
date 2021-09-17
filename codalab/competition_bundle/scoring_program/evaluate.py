@@ -1,10 +1,12 @@
 
 #!/usr/bin/env python3
 from __future__ import division
+from ranking_score import score_ranking_task
 import sys
 import os
 import os.path
 import pandas as pd 
+
 
 
 def compute_accuracy(submission_answer_dict, truth_dict): 
@@ -59,20 +61,23 @@ def main():
         # read the files 
         truth_file = os.path.join(truth_dir, "truth.tsv")
         truth = pd.read_csv(truth_file, sep='\t')
-        truth_dict = {row["Id"]: row["Class"] for index,row in truth.iterrows()}
+        #truth_dict = {row["Id"]: row["Class"] for index,row in truth.iterrows()}
         
 
         # read the submission answer file and compute accuracy. 
         submission_answer_file = os.path.join(submit_dir, "answers.tsv")
         submission_answer = pd.read_csv(submission_answer_file, sep='\t')
-        submission_answer_dict = {row["Id"]: row["Class"] for index, row in submission_answer.iterrows()}
+        #submission_answer_dict = {row["Id"]: row["Class"] for index, row in submission_answer.iterrows()}
 
 
 
-        accuracy_score = compute_accuracy(submission_answer_dict, truth_dict)
+        #accuracy_score = compute_accuracy(submission_answer_dict, truth_dict)
+        # just add a dummy for now. 
+        accuracy_score = 0.75 
 
         # just a dummy for now 
-        ranking_score = 0.75
+        ranking_score = score_ranking_task(submission_answer_file, truth_file)
+
         output_file.write("ranking_score:{:.3f}\n".format(ranking_score))
         output_file.write("accuracy_score:{:.3f}\n".format(accuracy_score))
         output_file.close()
