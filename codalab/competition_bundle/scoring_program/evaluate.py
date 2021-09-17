@@ -1,6 +1,6 @@
 
 #!/usr/bin/env python3
-
+from __future__ import division
 import sys
 import os
 import os.path
@@ -26,7 +26,6 @@ def compute_accuracy(submission_answer_dict, truth_dict):
         raise ValueError("Number of instances {0} is not the same as truth dict {1}".format(len(submission_answer_dict.keys()), len(truth_dict.keys())))
  
     accuracy_score = sum(results)/len(results)
-    sys.stdout.write("{0} {1}".format(sum(results), len(results)))
     return accuracy_score
 
 def main(): 
@@ -54,7 +53,7 @@ def main():
 
         # write the score to the output file. 
         output_filename = os.path.join(output_dir, 'scores.txt')
-        output_file = open(output_filename, 'w')
+        output_file = open(output_filename, 'wb')
 
 
         # read the files 
