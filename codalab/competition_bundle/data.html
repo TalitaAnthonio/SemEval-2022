@@ -49,3 +49,18 @@
         we also release the wikiHowToImprove dataset and the data for this shared task under CC BY-NC-SA 3.0.
     </p>
 </div>
+
+<h4>Data Format</h4>
+<div>
+    <p>The dataset files are TSV files. Each row represents a modified sentence with 5 different fillers (1 human insertion, 4 automatically generated insertions).</p>
+    <p>There are the following columns in the training dataset:</p>
+    <ul>
+        <li>"Article title": title of the wikiHow article in which the sentence occurs</li>
+        <li>"Section header": heading of the section which the sentence is part of</li>
+        <li>"Previous context": a couple of sentences that occur before the sentence in question - omissions are marked by "(...)"</li>
+        <li>"Sentence": the sentence with a placeholder "______" that marks where the fillers should be inserted</li>
+        <li>"Follow-up context": a couple of sentences that occur after the sentence in question - omissions are marked by "(...)"</li>
+        <li>"Filler1" to "Filler5": the five different fillers</li>
+        <li>"Rating1" to "Rating5": the corresponding plausibility scores for the 5 fillers - "Rating1" belongs to "Filler1", "Rating2" to "Filler2" and so on</li>
+    </ul>
+</div>
