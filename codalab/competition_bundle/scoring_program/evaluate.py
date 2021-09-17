@@ -1,10 +1,12 @@
 
 #!/usr/bin/env python3
 from __future__ import division
+from ranking_score import score_ranking_task
 import sys
 import os
 import os.path
 import pandas as pd 
+
 
 
 def compute_accuracy(submission_answer_dict, truth_dict): 
@@ -56,23 +58,36 @@ def main():
         output_file = open(output_filename, 'wb')
 
 
-        # read the files 
+        # read the truth file 
         truth_file = os.path.join(truth_dir, "truth.tsv")
-        truth = pd.read_csv(truth_file, sep='\t')
-        truth_dict = {row["Id"]: row["Class"] for index,row in truth.iterrows()}
-        
 
-        # read the submission answer file and compute accuracy. 
-        submission_answer_file = os.path.join(submit_dir, "answers.tsv")
-        submission_answer = pd.read_csv(submission_answer_file, sep='\t')
-        submission_answer_dict = {row["Id"]: row["Class"] for index, row in submission_answer.iterrows()}
+        # list the files in the directory 
+        files_in_submit_dir = [file for file in os.listdir(submit_dir)]
+
+        if 'classification_answer.tsv' in files_in_submit_dir: 
+            # read the truth files. 
+            truth = pd.read_csv(truth_file, sep='\t')
+            del truth['Rating']
+
+            #TODO make sure that it reads the correct column 
+            truth_dict = {row["Id"]: row["Class"] for index,row in truth.iterrows()}
+
+            # read the submitted file 
+            submission_answer_file = os.path.join(submit_dir, "classification_answers.tsv")
+            submission_answer = pd.read_csv(submission_answer_file, sep='\t')
+            submission_answer_dict = {row["Id"]: row["Class"] for index, row in submission_answer.iterrows()}
+
+            # compute the scores 
+            accuracy_score = compute_accuracy(submission_answer_dict, truth_dict)
+            ranking_score = 0 
+        elif "ranking_answer.tsv" in files_in_submit_dir: 
+            submission_answer_file = os.path.join(submit_dir, "ranking_answers.tsv")
+            ranking_score = score_ranking_task(submission_answer_file, truth_file)
+            accuracy_score = 0 
+        else: 
+            raise ValueError("Submitted file should be classification.tsv or ranking.tsv")
 
 
-
-        accuracy_score = compute_accuracy(submission_answer_dict, truth_dict)
-
-        # just a dummy for now 
-        ranking_score = 0.75
         output_file.write("ranking_score:{:.3f}\n".format(ranking_score))
         output_file.write("accuracy_score:{:.3f}\n".format(accuracy_score))
         output_file.close()
