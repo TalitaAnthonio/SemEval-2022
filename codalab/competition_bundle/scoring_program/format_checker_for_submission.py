@@ -14,7 +14,6 @@ The requirements for the dataframe representing a submission for the ranking tas
 * the id looks like the one for the classification task
 * the rating is a float
 """
-import argparse
 import logging
 
 import pandas as pd
