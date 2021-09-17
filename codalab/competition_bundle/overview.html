@@ -1,8 +1,8 @@
 <H3>SemEval-2022 Task 7: Identifying plausible clarifications of implicit and underspecified phrases in instructional texts. </H3>
 
 <p>
-The goal of this shared task is to evaluate the ability of NLP systems to distinguish between plausible and implausible clarifications of an instruction. These clarifications can be critical to ensure that instructions are followed correctly. We generated the data for this 
-competition by setting it up as a cloze task, in which clarifications are presented as possible fillers. Clarifications were identified using revision histories in which it is possible to observe disambiguations of various semantic and pragmatic phenomena, including implicit, underspecified, and metonymic references, as well as implicit discourse relations and implicit quantifying modifiers. 
+The goal of this shared task is to evaluate the ability of NLP systems to distinguish between plausible and implausible clarifications of an instruction. 
+TODO: add more background. Why is this task important? 
 
 <img src="example.png" alt="example.png">
 
@@ -12,6 +12,6 @@ competition by setting it up as a cloze task, in which clarifications are presen
 <h3> Task set-up </h3>
 Systems have to predict how well each filler fits in a given context. 
 <ul>
-    <li>Multi-class classification: predict the label (implausible/not-sure/plausible) given the clarification. Submitted systems will be evaluated using the accuracy score. </li>
-    <li>Regression: predict the plausibility score on a scale from 1 to 5 given the clarification. Submitted systems will be evaluated using Pearson's ranked correlation. </li>
+    <li>Classification: predict the label (implausible/not-sure/plausible) given the clarification. Submitted systems will be evaluated using the accuracy score. </li>
+    <li>Ranking: predict the plausibility score on a scale from 1 to 5 given the clarification. Submitted systems will be evaluated using Spearman's ranked correlation. </li>
 </ul>  
