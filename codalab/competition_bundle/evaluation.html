@@ -1,20 +1,37 @@
-<H3>Evaluation Criteria</H3>
+<h3>Evaluation</h3>
+<h4>Subtasks</h4>
+<div>
+	<p>The participants can choose whether they want to work on the <b>multiclass classification</b> and/or <b>ranking</b> subtask.<p>
+</div>
 
+<h5>Subtask A: Multi-Class Classification</h5>
+<div>
+	<p>For the classification subtask, the evaluation metric is the accuracy score.</p>
+</div>
+
+<h5>Subtask B: Ranking</h5>
+<div>
+	<p>
+		For the ranking subtask, the submissions will be scored with based on Spearman's rank correlation coefficient
+		to compare the predicted plausibility ranking over all test instances to the gold rating.
+	</p>
+	<p>
+		Note that the submission for the ranking subtask should contain the <b>predicted plausibility score</b> for each clarification (e. g. 4.5, 2.7 or 1.1)
+		and not the ordinal rank in the the ranking itself (e. g. rank 1, 2, 3 ...).
+		The evaluation script will automatically establish the resulting ranking based on the submitted plausibility scores.
+	</p>
+</div>
+
+<h4>Submission Format</h4>
 <p>
-	The participants can choose whether they want to work on <b> multiclass classification </b> and/or <b> regression </b>. Submitted systems 
-	will be evaluated using the accuracy score (multi-class classificatiion) or Spearman's ranked correlation. 
-</p>
-
-<p> 
-	TODO: visualize directory structure in a better way. 
-	<br> 
-	Each participant should submit a file of the format "answers.tsv.zip" with one of the following directories:  
+	Each participant should submit a file of the format "answers.tsv.zip" with one of the following directories:
+	<!-- TODO: visualize directory structure in a better way. -->
 	<ul>
 		<li>Classification</li>
 		<li>Ranking</li>
-	  </ul>  
-	
-	The submitted file should be called "answers.tsv" and should contain two columns. The first should contain 
-	the "Id" of the instance and the second one should contain the classes ("Class") in case of classification and "Score" 
-	in case of Ranking. 
+	  </ul>
+
+	The submitted file should be called "answers.tsv" and should contain two columns. The first should contain
+	the "Id" of the instance and the second one should contain the classes ("Class") in case of classification and "Rating"
+	in case of Ranking.
 </p>

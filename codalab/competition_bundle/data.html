@@ -1,12 +1,51 @@
 <h3> Data </h3>
-
-<p> 
-
-	The basis of our task is wikiHowToImprove (Anthonio et al., 2020), a collection of revisions of instructional texts from the how-to website wikiHow. 
-	For this task, we extract revisions that we believe are likely to represent specific instances of clarifications. 
-	As such, each revision in this task represents an option to clarify between possibly multiple meanings. 
-	To assess the plausibility of different clarification options, we automatically generate alternatives and ask annotators to rate for each clarification 
-	option whether it "makes sense in the given how-to guide" (on a scale from 1 to 5).
-	TODO: revise in a way that it's not soo scientific. 
-
-</p>
+<div>
+    <p>
+    The basis of our task is wikiHowToImprove (Anthonio et al., 2020), a collection of revisions of instructional texts from the how-to website <a href="http://www.wikihow.com">wikiHow</a>.
+    This website consists of collaboratively edited how-to guides for everyday scenarios.
+    Each article has a revision history that records the changes applied by different collaborators.
+    </p>
+    <p>
+        For this task, we extract revisions that we believe are likely to represent specific instances of clarifications for various semantic and pragmatic phenomena:
+        <ul>
+            <li>
+                insertion of implicit references:
+                <ul>
+                    <li>In the original version of a sentence, there was an implicit reference to a previously mentioned entity. The revision makes this reference explicit.</li>
+                    <li>Example: "Visit the salon's website. Call and ask questions." -> "Call the <b>salon</b> and ask questions."</li>
+                </ul>
+            </li>
+            <li>
+                resolution of fused head noun phrases:
+                <ul>
+                    <li>In the original version, there is a noun phrase where the head noun is missing. The revision adds that noun.</li>
+                    <li>Example: "The container must be exactly the same as the container you used to collect the water." -> "The container must be exactly the same <b>diameter</b> as the container you used to collect the water."</li>
+                </ul>
+            </li>
+            <li>
+                completion of noun compounds:
+                <ul>
+                    <li>The revision adds a compound modifier to a noun to make its meaning more specific.</li>
+                    <li>Example: "Send a card." -> "Send a <b>reminder</b> card."</li>
+                </ul>
+            </li>
+            <li>
+                resolution of metonymic relations:
+                <ul>
+                    <li>In the original version, a noun is used in a metonymy. The revision makes the particular component or aspect of a noun explicit that is meant.</li>
+                    <li>Example: "Screw each stringer to the deck frame with a drill." -> "Screw each stringer to <b>the top of</b> the deck frame with a drill."</li>
+                </ul>
+            </li>
+        </ul>
+    </p>
+    <p>
+        To assess the plausibility of different clarification options, we automatically generate alternatives to the insertion an wikiHow contributor made.
+        We treat each original sentence as a cloze test, inserting a blank at the position where the wikiHow contributor edited the text (e. g. "Send a _ card."). Then, we use a language model to fill this blank.
+        We ask annotators to rate for each clarification option whether it "makes sense in the given how-to guide" (on a scale from 1 to 5).
+        Afterwards, we average over the different ratings for one clarification to get the final gold score.
+    </p>
+    <p>
+        Since wikiHow articles are released under a <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/">Attribution-NonCommerical-Share Alike 3.0 Creative Commons License (CC BY-NC-SA 3.0)</a> (see <a href="https://www.wikihow.com/wikiHow:Creative-Commons">wikiHow</a> for more information),
+        we also release the wikiHowToImprove dataset and the data for this shared task under CC BY-NC-SA 3.0.
+    </p>
+</div>
