@@ -31,17 +31,14 @@
 <h5>Subtask A: Multi-Class Classification</h5>
 <div>
     <p>The goal is to predict a class label (implausible/not-sure/plausible) given the clarification and its context.</p>
-    <p>Submitted systems will be evaluated using the accuracy score.</p>
+    <p>Submitted systems will be evaluated based on the accuracy score.</p>
 </div>
 
 <h5>Subtask B: Ranking</h5>
 <div>
     <p>The goal is to predict the plausibility score on a scale from 1 to 5 given the clarification and its context.</p>
-    <p>
-        All clarifications in the evaluation set are ordered by the predicted plausibility to create a ranking.
-        This ranking is then compared to the ranking that was established by the gold plausibility scores.
-        The evaluation metric for this comparison is <a href="http://sites.utexas.edu/sos/guided/inferential/numeric/bivariate/rankcor/">Spearman's rank correlation coefficient</a>. 
-    </p>
+    <p>Submitted systems will be evaluated based on <a href="http://sites.utexas.edu/sos/guided/inferential/numeric/bivariate/rankcor/">Spearman's rank correlation coefficient</a>
+        (correlation between gold and predicted plausibility scores, according to their overall ranks).</p>
 </div>
 
 <h4>Want to Get in Touch? Need a Clarification?</h4>
