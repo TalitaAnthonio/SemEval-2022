@@ -1,10 +1,15 @@
-<h3> Data </h3>
+<h3>Data</h3>
+<h4>Data Source</h4>
 <div>
     <p>
     The basis of our task is wikiHowToImprove (Anthonio et al., 2020), a collection of revisions of instructional texts from the how-to website <a href="http://www.wikihow.com">wikiHow</a>.
     This website consists of collaboratively edited how-to guides for everyday scenarios.
     Each article has a revision history that records the changes applied by different collaborators.
     </p>
+</div>
+
+<h4>Clarification Phenomena</h4>
+<div>
     <p>
         For this task, we extract revisions that we believe are likely to represent specific instances of clarifications for various semantic and pragmatic phenomena:
         <ul>
@@ -38,6 +43,10 @@
             </li>
         </ul>
     </p>
+</div>
+
+<h4>Annotation Process</h4>
+<div>
     <p>
         To assess the plausibility of different clarification options, we automatically generate alternatives to the insertion an wikiHow contributor made.
         We treat each original sentence as a cloze test, inserting a blank at the position where the wikiHow contributor edited the text (e. g. "Send a _ card."). Then, we use a language model to fill this blank.
@@ -45,8 +54,12 @@
         Afterwards, we average over the different ratings for one clarification to get the final gold score.
     </p>
     <p>
-        Since wikiHow articles are released under a <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/">Attribution-NonCommerical-Share Alike 3.0 Creative Commons License (CC BY-NC-SA 3.0)</a> (see <a href="https://www.wikihow.com/wikiHow:Creative-Commons">wikiHow</a> for more information),
-        we also release the wikiHowToImprove dataset and the data for this shared task under CC BY-NC-SA 3.0.
+        For the classification subtask, we convert each real-valued gold score to a class label as follows:
+        <ul>
+            <li>score <= 2.5: implausible</li>
+            <li>2.5 < score < 4: not-sure</li>
+            <li>score >= 4: plausible</li>
+        </ul>
     </p>
 </div>
 
@@ -63,4 +76,12 @@
         <li>"Filler1" to "Filler5": the five different fillers</li>
         <li>"Rating1" to "Rating5": the corresponding plausibility scores for the 5 fillers - "Rating1" belongs to "Filler1", "Rating2" to "Filler2" and so on</li>
     </ul>
+</div>
+
+<h4>License</h4>
+<div>
+        <p>
+        Since wikiHow articles are released under a <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/">Attribution-NonCommerical-Share Alike 3.0 Creative Commons License (CC BY-NC-SA 3.0)</a> (see <a href="https://www.wikihow.com/wikiHow:Creative-Commons">wikiHow</a> for more information),
+        we also release the wikiHowToImprove dataset and the data for this shared task under CC BY-NC-SA 3.0.
+    </p>
 </div>
