@@ -7,6 +7,13 @@
 <h5>Subtask A: Multi-Class Classification</h5>
 <div>
 	<p>For the classification subtask, the evaluation metric is the accuracy score.</p>
+	<p>To convert each real-valued gold score provided by the annotators to a class label, we apply the following rules:</p>
+        <ul>
+            <li>score <= 2.5: implausible</li>
+            <li>2.5 < score < 4: not-sure</li>
+            <li>score >= 4: plausible</li>
+        </ul>
+	<p>When training your model for subtask A, you can also use these rules to convert the score for the training instances into class labels.</p>
 </div>
 
 <h5>Subtask B: Ranking</h5>
