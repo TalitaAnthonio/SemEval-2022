@@ -2,7 +2,7 @@
 <h4>Data Source</h4>
 <div>
     <p>
-    The basis of our task is wikiHowToImprove (Anthonio et al., 2020), a collection of revisions of instructional texts from the how-to website <a href="http://www.wikihow.com">wikiHow</a>.
+        The basis of our task is wikiHowToImprove (<a href="https://aclanthology.org/2020.lrec-1.702/">Anthonio et al., 2020</a>), a collection of revisions of instructional texts from the how-to website <a href="http://www.wikihow.com">wikiHow</a>.
     This website consists of collaboratively edited how-to guides for everyday scenarios.
     Each article has a revision history that records the changes applied by different collaborators.
     </p>
@@ -14,28 +14,28 @@
         For this task, we extract revisions that we believe are likely to represent specific instances of clarifications for various semantic and pragmatic phenomena:
         <ul>
             <li>
-                insertion of implicit references:
+                insertion of implicit references (IMPLICIT REFERENCE):
                 <ul>
                     <li>In the original version of a sentence, there was an implicit reference to a previously mentioned entity. The revision makes this reference explicit.</li>
                     <li>Example: "Visit the salon's website. Call and ask questions." -> "Call the <b>salon</b> and ask questions."</li>
                 </ul>
             </li>
             <li>
-                resolution of fused head noun phrases:
+                resolution of fused head noun phrases (FUSED HEAD):
                 <ul>
                     <li>In the original version, there is a noun phrase where the head noun is missing. The revision adds that noun.</li>
                     <li>Example: "The container must be exactly the same as the container you used to collect the water." -> "The container must be exactly the same <b>diameter</b> as the container you used to collect the water."</li>
                 </ul>
             </li>
             <li>
-                completion of noun compounds:
+                completion of noun compounds (ADDED COMPOUND):
                 <ul>
                     <li>The revision adds a compound modifier to a noun to make its meaning more specific.</li>
                     <li>Example: "Send a card." -> "Send a <b>reminder</b> card."</li>
                 </ul>
             </li>
             <li>
-                resolution of metonymic relations:
+                resolution of metonymic relations (METONYMIC REFERENCE):
                 <ul>
                     <li>In the original version, a noun is used in a metonymy. The revision makes the particular component or aspect of a noun explicit that is meant.</li>
                     <li>Example: "Screw each stringer to the deck frame with a drill." -> "Screw each stringer to <b>the top of</b> the deck frame with a drill."</li>
@@ -56,26 +56,58 @@
     <p>
         For the classification subtask, we convert each real-valued gold score to a class label as follows:
         <ul>
-            <li>score <= 2.5: implausible</li>
-            <li>2.5 < score < 4: not-sure</li>
-            <li>score >= 4: plausible</li>
+            <li>score <= 2.5: IMPLAUSIBLE</li>
+            <li>2.5 < score < 4: NEUTRAL</li>
+            <li>score >= 4: PLAUSIBLE</li>
         </ul>
     </p>
 </div>
 
 <h4>Data Format</h4>
 <div>
-    <p>We provide the train and development set (available on <a href="https://clarificationtask.github.io/"> our task website</a>) for participants. </p>
-    <p>The provided files are TSV files. Each row represents a modified sentence with 5 different fillers (1 human insertion, 4 automatically generated insertions).</p>
-    <p>The train and development files contain the following columns:</p>
+    <p>We provide the training instances and the corresponding gold labels (available on <a href="https://clarificationtask.github.io/"> our task website</a>) for participants. We will also release the development set with instances and their labels at a later point.</p>
+    <p>All provided files are TSV files.</p>
+</div>
+
+<h5>File with Instances</h5>
+<div>
+    <p>In the file with the instances themselves, each row represents a modified sentence with 5 different fillers (1 human insertion, 4 automatically generated insertions).</p>
+    <p>The file with the training instances contain the following columns:</p>
     <ul>
+        <li>"Id": an integer identifier</li>
+        <li>"Resolved pattern": name of the clarification phenomenon (cf. list above: IMPLICIT REFERENCE, FUSED HEAD, ADDED NOUN, METONYMIC REFERENCE)</li>
         <li>"Article title": title of the wikiHow article in which the sentence occurs</li>
         <li>"Section header": heading of the section which the sentence is part of</li>
         <li>"Previous context": a couple of sentences that occur before the sentence in question - omissions are marked by "(...)"</li>
         <li>"Sentence": the sentence with a placeholder "______" that marks where the fillers should be inserted</li>
         <li>"Follow-up context": a couple of sentences that occur after the sentence in question - omissions are marked by "(...)"</li>
         <li>"Filler1" to "Filler5": the five different fillers</li>
-        <li>"Rating1" to "Rating5": the corresponding plausibility scores for the 5 fillers - "Rating1" belongs to "Filler1", "Rating2" to "Filler2" and so on</li>
+    </ul>
+</div>
+
+<h5>Subtask A: File with Gold Class Labels</h5>
+<div>
+    <p>The file with the gold class labels for the training instances is for the classification subtask. It has two columns:</p>
+    <ul>
+        <li>
+           a column with the identifier, a str that consists of three parts:
+           <ul>
+               <li>it starts with an integer representing the id of the instance</li>
+               <li>next, there is an underscore</li>
+               <li>finally, the id of the filler (1 to 5)</li>
+               <li>e. g. "42_1" stands for the sentence with id 42 with filler 1</li>
+           </ul>
+       </li>
+        <li>a column with the class label that is drawn from the label set of IMPLAUSIBLE, NEUTRAL and PLAUSIBLE</li>
+    </ul>
+</div>
+
+<h5>Subtask B: File with Gold Plausibility Scores</h5>
+<div>
+    <p>The file with the gold plausibility scores for the training instances is for the ranking subtask. It has two columns:</p>
+    <ul>
+        <li>a column with the str identifier that looks like the one for the classification subtask (cf. above)</li>
+        <li>a column wit the plausibility score, a float between 1 and 5</li>
     </ul>
 </div>
 
