@@ -34,7 +34,7 @@ def check_format_of_submission(submission, evaluation_mode):
         check_format_for_classification_submission(submission)
 
     else:
-        raise ValueError(f"Evaluation mode {evaluation_mode} not available.")
+        raise ValueError("Evaluation mode {} not available.".format(evaluation_mode))
 
     logging.debug("Format checking for submission successful. No problems detected.")
 
@@ -50,11 +50,11 @@ def check_format_for_ranking_submission(submission):
         try:
             rating = float(rating_str)
         except ValueError:
-            raise ValueError(f"Rating {rating_str} is not a float.")
+            raise ValueError("Rating {} is not a float.".format(rating_str))
         else:
             if 1 > rating or rating > 5:
                 raise ValueError(
-                    f"Rating {rating} is not within the range between 1 and 5."
+                    "Rating {} is not within the range between 1 and 5.".format(rating)
                 )
 
 
@@ -69,14 +69,14 @@ def check_format_for_classification_submission(submission):
     for class_label in submission[1]:
         if class_label not in valid_class_labels:
             raise ValueError(
-                f"Label {class_label} is not part of the label set {valid_class_labels}"
+                "Label {} is not part of the label set {}".format(class_label, valid_class_labels)
             )
 
 
 def check_identifiers(id_list):
     for identifier in id_list:
         if "_" not in identifier:
-            raise ValueError(f"Id {identifier} does not contain an underscore.")
+            raise ValueError("Id {} does not contain an underscore.".format(identifier))
         else:
             sentence_id_str, filler_id_str = identifier.split("_")
 
@@ -84,17 +84,17 @@ def check_identifiers(id_list):
                 int(sentence_id_str)
             except ValueError:
                 raise ValueError(
-                    f"The sentence id {sentence_id_str} in id {identifier} is not a valid integer."
+                    "The sentence id {} in id {} is not a valid integer.".format(sentence_id_str, identifier)
                 )
 
             try:
                 filler_id = int(filler_id_str)
             except ValueError:
                 raise ValueError(
-                    f"The filler id {filler_id_str} in id {identifier} is not a valid integer."
+                    "The filler id {} in id {} is not a valid integer.".format(filler_id_str, identifier)
                 )
             else:
                 if 1 > filler_id or filler_id > 5:
                     raise ValueError(
-                        f"The filler id {filler_id} in id {identifier} is not in the range of 1 to 5."
+                        "The filler id {} in id {} is not in the range of 1 to 5.".format(filler_id, identifier)
                     )
