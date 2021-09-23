@@ -7,13 +7,12 @@
 <h5>Subtask A: Multi-Class Classification</h5>
 <div>
 	<p>For the classification subtask, the evaluation metric is the accuracy score.</p>
-	<p>To convert each real-valued gold score provided by the annotators to a class label, we apply the following rules:</p>
+	<p>There are three classes:</p>
         <ul>
-            <li>score <= 2.5: implausible</li>
-            <li>2.5 < score < 4: not-sure</li>
-            <li>score >= 4: plausible</li>
+            <li>IMPLAUSIBLE</li>
+            <li>NEUTRAL</li>
+            <li>PLAUSIBLE</li>
         </ul>
-	<p>When training your model for subtask A, you can also use these rules to convert the score for the training instances into class labels.</p>
 </div>
 
 <h5>Subtask B: Ranking</h5>
@@ -41,5 +40,5 @@
 	The directory "classification" should contain a tsv-file called "classification_answers.tsv" and the directory "ranking" should contain 
 	a tsv-file called "ranking_answers.tsv". If you decide to only participate in one task, just leave the directory that indicates the task 
 	that you are not participating in empty. Each tsv-file should contain two columns from left to right: (1) a column with the corresponding ids of each 
-	data instance (2) the predictions of your system. 
+	data instance (2) the predictions of your system (a class label for subtask A, a float plausibility score for subtask B).
 </p>
