@@ -25,7 +25,7 @@ logging.basicConfig(level=logging.DEBUG)
 def check_format_of_submission(submission: pd.DataFrame, evaluation_mode: str) -> None:
     """Check the format of a dataframe with predictions.
 
-    :param submission: dataframe with submission data (columns "Id" and "Label")
+    :param submission: dataframe with submission data
     :param evaluation_mode: str describing whether the submission is for the 'ranking' or 'classification' task
     """
     logging.debug("Verifying the format of submission")
@@ -47,9 +47,9 @@ def check_format_for_ranking_submission(submission: pd.DataFrame) -> None:
 
     :param submission: dataframe with submission data
     """
-    check_identifiers(submission["Id"])
+    check_identifiers(submission[0])
 
-    for rating_str in submission["Label"]:
+    for rating_str in submission[1]:
         try:
             rating = float(rating_str)
         except ValueError:
@@ -66,13 +66,13 @@ def check_format_for_classification_submission(submission: pd.DataFrame) -> None
 
     :param submission: dataframe with submission data
     """
-    check_identifiers(submission["Id"])
+    check_identifiers(submission[0])
 
     valid_class_labels = ["IMPLAUSIBLE", "NEUTRAL", "PLAUSIBLE"]
-    for class_label in submission["Label"]:
+    for class_label in submission[1]:
         if class_label not in valid_class_labels:
             raise ValueError(
-                f"Label {class_label} does not correspond to one of the three available class labels: {valid_class_labels}"
+                f"Label {class_label} is not part of the label set {valid_class_labels}"
             )
 
 
