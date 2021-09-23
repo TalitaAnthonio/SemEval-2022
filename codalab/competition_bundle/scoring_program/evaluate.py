@@ -1,7 +1,7 @@
 
 #!/usr/bin/env python3
 from __future__ import division
-from scoring_program.format_checker_for_submission import check_format_of_submission
+from format_checker_for_submission import check_format_of_submission
 from ranking_score import score_ranking_task
 import sys
 import os
