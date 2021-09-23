@@ -73,8 +73,8 @@ def main():
      
             # read the submitted file 
             submission_answer_file = os.path.join(submit_dir, "classification", "classification_answers.tsv")
-            submission_answer = pd.read_csv(submission_answer_file, sep='\t')
-            submission_answer_dict = {row["Id"]: row["Class"] for index, row in submission_answer.iterrows()}
+            submission_answer = pd.read_csv(submission_answer_file, sep='\t', header=None)
+            submission_answer_dict = {row[0]: row[1] for index, row in submission_answer.iterrows()}
 
             # compute the accuracy 
             truth = pd.read_csv(truth_file, sep='\t')
@@ -88,8 +88,8 @@ def main():
         
         elif 'classification_answers.tsv' in files_in_submit_dir_classification: 
             submission_answer_file = os.path.join(submit_dir, "classification", "classification_answers.tsv")
-            submission_answer = pd.read_csv(submission_answer_file, sep='\t')
-            submission_answer_dict = {row["Id"]: row["Class"] for index, row in submission_answer.iterrows()}
+            submission_answer = pd.read_csv(submission_answer_file, sep='\t', header=None)
+            submission_answer_dict = {row[0]: row[1] for index, row in submission_answer.iterrows()}
 
             # compute the accuracy 
             truth = pd.read_csv(truth_file, sep='\t')
