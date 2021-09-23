@@ -15,14 +15,11 @@ The requirements for the dataframe representing a submission for the ranking tas
 * the plausibility score is a float
 """
 import logging
-from typing import List
-
-import pandas as pd
 
 logging.basicConfig(level=logging.DEBUG)
 
 
-def check_format_of_submission(submission: pd.DataFrame, evaluation_mode: str) -> None:
+def check_format_of_submission(submission, evaluation_mode):
     """Check the format of a dataframe with predictions.
 
     :param submission: dataframe with submission data
@@ -42,7 +39,7 @@ def check_format_of_submission(submission: pd.DataFrame, evaluation_mode: str) -
     logging.debug("Format checking for submission successful. No problems detected.")
 
 
-def check_format_for_ranking_submission(submission: pd.DataFrame) -> None:
+def check_format_for_ranking_submission(submission):
     """Check the format of predictions for the ranking task.
 
     :param submission: dataframe with submission data
@@ -61,7 +58,7 @@ def check_format_for_ranking_submission(submission: pd.DataFrame) -> None:
                 )
 
 
-def check_format_for_classification_submission(submission: pd.DataFrame) -> None:
+def check_format_for_classification_submission(submission):
     """Check format of predictions for the classification task.
 
     :param submission: dataframe with submission data
@@ -76,7 +73,7 @@ def check_format_for_classification_submission(submission: pd.DataFrame) -> None
             )
 
 
-def check_identifiers(id_list: List[str]) -> None:
+def check_identifiers(id_list):
     for identifier in id_list:
         if "_" not in identifier:
             raise ValueError(f"Id {identifier} does not contain an underscore.")
