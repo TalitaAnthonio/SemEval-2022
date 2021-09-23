@@ -24,7 +24,7 @@ def score_ranking_task(submission_file,truth_file):
     predicted_ratings = []
 
     for _, row in submission.iterrows():
-        reference_indices = list(reference["Id"][reference["Id"] == row["Id"]].index)
+        reference_indices = list(reference["Id"][reference["Id"] == row[0]].index)
 
         if not reference_indices:
             raise ValueError("Identifier {0} does not appear in reference file.".format(row["Id"]))
