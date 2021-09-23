@@ -10,12 +10,15 @@ def score_ranking_task(submission_file,truth_file):
     :param truth_file: str path to file with ground truth labels
     :return: float Spearman's rank correlation coefficient
     """
-    submission = pd.read_csv(submission_file, delimiter="\t")
-    check_format_of_submission(submission, evaluation_mode="ranking")
+    # read the submission file 
+    submission = pd.read_csv(submission_file, delimiter="\t", header=None)
+
+
+    #check_format_of_submission(submission, evaluation_mode="ranking")
 
     reference = pd.read_csv(truth_file, delimiter="\t")
     del reference['Class']
-    check_format_of_submission(reference, evaluation_mode="ranking")
+    #check_format_of_submission(reference, evaluation_mode="ranking")
 
     gold_ratings = []
     predicted_ratings = []
@@ -30,7 +33,7 @@ def score_ranking_task(submission_file,truth_file):
         else:
             reference_index = reference_indices[0]
             gold_ratings.append(float(reference["Rating"][reference_index]))
-            predicted_ratings.append(float(row["Rating"]))
+            predicted_ratings.append(float(row[1]))
 
     return spearmans_rank_correlation(gold_ratings=gold_ratings, predicted_ratings=predicted_ratings)
 
