@@ -1,30 +1,31 @@
 """A module for checking the format of a submission with predictions.
 
 The requirements for the dataframe representing a submission for the classification task are:
-* shall have two columns "Id" and "Class"
-* the id is a string:
+* shall have two columns, one with identifiers and another with class labels
+* each id is a string:
     * it starts with an integer representing the id of the instance
     * next, there is an underscore
     * finally, the id of the filler (1 to 5)
     * e. g. "42_1" stands for the sentence with id 42 with filler 1
-* the class label is string from the label set "implausible", "not-sure", "plausible"
+* the class label is string from the label set "IMPLAUSIBLE", "NEUTRAL", "PLAUSIBLE"
 
 The requirements for the dataframe representing a submission for the ranking task are:
-* shall have two columns "Id" and "Rating"
+* shall have two columns, one with identifiers and another with real-valued plausibility scores
 * the id looks like the one for the classification task
-* the rating is a float
+* the plausibility score is a float
 """
 import logging
+from typing import List
 
 import pandas as pd
 
 logging.basicConfig(level=logging.DEBUG)
 
 
-def check_format_of_submission(submission, evaluation_mode): 
+def check_format_of_submission(submission: pd.DataFrame, evaluation_mode: str) -> None:
     """Check the format of a dataframe with predictions.
 
-    :param submission: dataframe with submission data
+    :param submission: dataframe with submission data (columns "Id" and "Label")
     :param evaluation_mode: str describing whether the submission is for the 'ranking' or 'classification' task
     """
     logging.debug("Verifying the format of submission")
@@ -36,83 +37,67 @@ def check_format_of_submission(submission, evaluation_mode):
         check_format_for_classification_submission(submission)
 
     else:
-        raise ValueError("Evaluation mode {0} not available.".format(evaluation_mode))
+        raise ValueError(f"Evaluation mode {evaluation_mode} not available.")
 
     logging.debug("Format checking for submission successful. No problems detected.")
 
 
-def check_format_for_ranking_submission(submission): 
+def check_format_for_ranking_submission(submission: pd.DataFrame) -> None:
     """Check the format of predictions for the ranking task.
 
     :param submission: dataframe with submission data
     """
-    required_columns = [
-        "Id",
-        "Rating",
-    ]
-    if not list(submission.columns) == required_columns:
-        raise ValueError(
-            "File does not have the required columns: {list(submission.columns)} != {required_columns}."
-        )
-
     check_identifiers(submission["Id"])
 
-    for rating_str in submission["Rating"]:
+    for rating_str in submission["Label"]:
         try:
             rating = float(rating_str)
         except ValueError:
-            raise ValueError("Rating {0} is not a float.".format(rating_str))
+            raise ValueError(f"Rating {rating_str} is not a float.")
         else:
             if 1 > rating or rating > 5:
                 raise ValueError(
-                    "Rating {0} is not within the range between 1 and 5.".format(rating)
+                    f"Rating {rating} is not within the range between 1 and 5."
                 )
 
 
-def check_format_for_classification_submission(submission): 
+def check_format_for_classification_submission(submission: pd.DataFrame) -> None:
     """Check format of predictions for the classification task.
 
     :param submission: dataframe with submission data
     """
-    required_columns = [
-        "Id",
-        "Class",
-    ]
-    if not list(submission.columns) == required_columns:
-        raise ValueError("File does not have the required columns: {list(submission.columns)} != {required_columns}.")
-
     check_identifiers(submission["Id"])
 
-    for class_label in submission["Class"]:
-        if class_label not in ["implausible", "not-sure", "plausible"]:
+    valid_class_labels = ["IMPLAUSIBLE", "NEUTRAL", "PLAUSIBLE"]
+    for class_label in submission["Label"]:
+        if class_label not in valid_class_labels:
             raise ValueError(
-                "Label {0} does not correspond to one of the three available class labels: "
-                "'implausible', 'not-sure' and 'plausible'.".format(class_label)
+                f"Label {class_label} does not correspond to one of the three available class labels: {valid_class_labels}"
             )
 
 
-def check_identifiers(id_list): 
+def check_identifiers(id_list: List[str]) -> None:
     for identifier in id_list:
         if "_" not in identifier:
-            raise ValueError("Id {0} does not contain an underscore.".format(identifier))
+            raise ValueError(f"Id {identifier} does not contain an underscore.")
         else:
             sentence_id_str, filler_id_str = identifier.split("_")
 
             try:
                 int(sentence_id_str)
             except ValueError:
-                raise ValueError("The sentence id {0} in id {1} is not a valid integer.".format(sentence_id_str, identifier))
+                raise ValueError(
+                    f"The sentence id {sentence_id_str} in id {identifier} is not a valid integer."
+                )
 
             try:
                 filler_id = int(filler_id_str)
             except ValueError:
                 raise ValueError(
-                    "The filler id {0} in id {1} is not a valid integer.".format(filler_id_str, identifier)
+                    f"The filler id {filler_id_str} in id {identifier} is not a valid integer."
                 )
             else:
                 if 1 > filler_id or filler_id > 5:
                     raise ValueError(
-                        "The filler id {0} in id {1} is not in the range of 1 to 5.".format(filler_id_str, identifier)
+                        f"The filler id {filler_id} in id {identifier} is not in the range of 1 to 5."
                     )
-
-
