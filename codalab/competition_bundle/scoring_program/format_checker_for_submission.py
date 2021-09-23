@@ -44,9 +44,9 @@ def check_format_for_ranking_submission(submission):
 
     :param submission: dataframe with submission data
     """
-    check_identifiers(submission[0])
+    check_identifiers(submission["Id"])
 
-    for rating_str in submission[1]:
+    for rating_str in submission["Rating"]:
         try:
             rating = float(rating_str)
         except ValueError:

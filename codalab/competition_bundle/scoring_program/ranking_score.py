@@ -11,7 +11,7 @@ def score_ranking_task(submission_file,truth_file):
     :return: float Spearman's rank correlation coefficient
     """
     # read the submission file 
-    submission = pd.read_csv(submission_file, delimiter="\t", header=None)
+    submission = pd.read_csv(submission_file, delimiter="\t", header=None, names=["Id", "Rating"])
 
 
     check_format_of_submission(submission, evaluation_mode="ranking")
