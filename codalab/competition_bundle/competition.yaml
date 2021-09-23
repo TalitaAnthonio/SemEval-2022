@@ -17,7 +17,7 @@ html:
 phases:
     0:
         color: green 
-        description: "Development phase"
+        description: "Trial Phase"
         phasenumber: 0
         label: "Trial Phase"
         start_date: 2021-09-03
@@ -31,23 +31,23 @@ phases:
     # not possible to add an end-date here. 
     1: 
         color: orange
-        description: Evaluation phase
-        label: Evaluation 
-        max_submissions_per_day: 10 
-        max_submissions: 10 
+        description: Development Phase
+        label: Development
+        max_submissions_per_day: 100 
+        max_submissions: 100 
         phasenumber: 1
         reference_data: reference_data.zip
         scoring_program: scoring_program.zip
-        start_date: 2022-01-01
+        start_date: 2021-11-01
         
 
 
     2: 
         color: blue 
-        description: Submission phase
-        label: Submission 
-        max_submissions_per_day: 10 
-        max_submissions: 10 
+        description: Evaluation Phase
+        label: Evaluation
+        max_submissions_per_day: 4
+        max_submissions: 4
         phasenumber: 2
         reference_data: reference_data.zip 
         scoring_program: scoring_program.zip 
