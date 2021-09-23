@@ -14,11 +14,11 @@ def score_ranking_task(submission_file,truth_file):
     submission = pd.read_csv(submission_file, delimiter="\t", header=None)
 
 
-    #check_format_of_submission(submission, evaluation_mode="ranking")
+    check_format_of_submission(submission, evaluation_mode="ranking")
 
     reference = pd.read_csv(truth_file, delimiter="\t")
     del reference['Class']
-    #check_format_of_submission(reference, evaluation_mode="ranking")
+    check_format_of_submission(reference, evaluation_mode="ranking")
 
     gold_ratings = []
     predicted_ratings = []

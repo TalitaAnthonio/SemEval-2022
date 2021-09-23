@@ -1,6 +1,7 @@
 
 #!/usr/bin/env python3
 from __future__ import division
+from scoring_program.format_checker_for_submission import check_format_of_submission
 from ranking_score import score_ranking_task
 import sys
 import os
@@ -18,6 +19,7 @@ def compute_accuracy(submission_answer_dict, truth_dict):
     results = []
     for id, answer in submission_answer_dict.items(): 
         if submission_answer_dict[id] == truth_dict[id]: 
+            
             results.append(1)
 
         else:
@@ -69,11 +71,12 @@ def main():
 
         if 'classification_answers.tsv' in files_in_submit_dir_classification and "ranking_answers.tsv" in files_in_submit_dir_ranking:  
             # read the truth files. 
-      
+            sys.stdout.write("participation in both tasks")
      
             # read the submitted file 
             submission_answer_file = os.path.join(submit_dir, "classification", "classification_answers.tsv")
             submission_answer = pd.read_csv(submission_answer_file, sep='\t', header=None)
+            check_format_of_submission(submission_answer, evaluation_mode="classification")
             submission_answer_dict = {row[0]: row[1] for index, row in submission_answer.iterrows()}
 
             # compute the accuracy 
@@ -87,8 +90,10 @@ def main():
             ranking_score = score_ranking_task(submission_answer_file, truth_file)
         
         elif 'classification_answers.tsv' in files_in_submit_dir_classification: 
+            sys.stdout.write("participation in classification")
             submission_answer_file = os.path.join(submit_dir, "classification", "classification_answers.tsv")
             submission_answer = pd.read_csv(submission_answer_file, sep='\t', header=None)
+            check_format_of_submission(submission_answer, evaluation_mode="classification")
             submission_answer_dict = {row[0]: row[1] for index, row in submission_answer.iterrows()}
 
             # compute the accuracy 
@@ -100,6 +105,7 @@ def main():
         
         elif "ranking_answers.tsv" in files_in_submit_dir_ranking: 
             submission_answer_file = os.path.join(submit_dir, "ranking", "ranking_answers.tsv")
+            sys.stdout.write("participation in ranking")
             ranking_score = score_ranking_task(submission_answer_file, truth_file)
             accuracy_score = 0 
 
