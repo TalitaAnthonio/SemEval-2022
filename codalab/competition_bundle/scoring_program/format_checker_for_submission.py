@@ -48,14 +48,9 @@ def check_format_for_ranking_submission(submission):
 
     for rating_str in submission["Rating"]:
         try:
-            rating = float(rating_str)
+            float(rating_str)
         except ValueError:
             raise ValueError("Rating {} is not a float.".format(rating_str))
-        else:
-            if 1 > rating or rating > 5:
-                raise ValueError(
-                    "Rating {} is not within the range between 1 and 5.".format(rating)
-                )
 
 
 def check_format_for_classification_submission(submission):
