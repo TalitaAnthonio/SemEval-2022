@@ -36,8 +36,9 @@ phases:
         max_submissions_per_day: 100 
         max_submissions: 100 
         phasenumber: 1
-        reference_data: reference_data.zip
-        scoring_program: scoring_program.zip
+        reference_data: development_reference_data.zip
+        scoring_program: development_scoring_program.zip
+        public_data: development_input_data.zip
         start_date: 2021-11-01
         
 
